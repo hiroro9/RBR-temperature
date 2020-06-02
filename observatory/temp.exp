@@ -1,0 +1,72 @@
+#!/bin/sh
+
+TIME="1st"
+min1="1min"
+min10="10min"
+
+for SEN in "T01" "T02" "T03" "T04" "T05"
+  do
+  expect -c "
+    spawn python ../../resampling_T.py
+    
+    expect \"sensor\"
+    send \"${SEN}\n\"
+    
+    expect \"number\"
+    send \"${TIME}\n\"
+    
+    expect \"interval\"
+    send \"${min1}\n\"
+    
+    exit 0
+  "
+  
+  expect -c "
+    spawn python ../../resampling_T.py
+    
+    expect \"sensor\"
+    send \"${SEN}\n\"
+    
+    expect \"number\"
+    send \"${TIME}\n\"
+    
+    expect \"interval\"
+    send \"${min10}\n\"
+    
+    exit 0
+  "
+  done
+
+for SENP in "TD01" "TD02" "TD03" "TD04" "TD05"
+  do
+    expect -c "
+    spawn python ../../resampling_TD.py
+    
+    expect \"sensor\"
+    send \"${SENP}\n\"
+    
+    expect \"number\"
+    send \"${TIME}\n\"
+    
+    expect \"interval\"
+    send \"${min1}\n\"
+    
+    exit 0
+  "
+  
+  expect -c "
+    spawn python ../../resampling_TD.py
+    
+    expect \"sensor\"
+    send \"${SENP}\n\"
+    
+    expect \"number\"
+    send \"${TIME}\n\"
+    
+    expect \"interval\"
+    send \"${min10}\n\"
+    
+    exit 0
+  "
+  done    
+
