@@ -1,0 +1,100 @@
+#!/bin/sh
+
+TIME="8th"
+min1="1min"
+min10="10min"
+
+for SEN in "T01" "T02" "T06" "T07" "T05" "T08" "T09" "T10" "T11" "T12" "T13" 
+  do
+
+  expect -c "
+    spawn ./x2csv.sh
+
+    expect \"Sensor\"
+    send \"${SEN}\n\"
+
+    expect \"Obs\"
+    send \"${TIME}\n\"
+
+    interact
+  "
+
+  expect -c "
+    spawn python resampling_T.py
+    
+    expect \"sensor\"
+    send \"${SEN}\n\"
+    
+    expect \"number\"
+    send \"${TIME}\n\"
+    
+    expect \"interval\"
+    send \"${min1}\n\"
+    
+    exit 0
+  "
+  
+  expect -c "
+    spawn python resampling_T.py
+    
+    expect \"sensor\"
+    send \"${SEN}\n\"
+    
+    expect \"number\"
+    send \"${TIME}\n\"
+    
+    expect \"interval\"
+    send \"${min10}\n\"
+    
+    exit 0
+  "
+  done
+
+for SENP in "TD01" "TD02" "TD02-2" "TD02-3" "TD03" "TD04" "TD04_2" 
+  do
+
+   expect -c "
+    spawn ./x2csv.sh
+
+    expect \"Sensor\"
+    send \"${SENP}\n\"
+
+    expect \"Obs\"
+    send \"${TIME}\n\"
+
+    interact
+
+    exit 0
+  "
+
+   expect -c "
+    spawn python resampling_TD.py
+    
+    expect \"sensor\"
+    send \"${SENP}\n\"
+    
+    expect \"number\"
+    send \"${TIME}\n\"
+    
+    expect \"interval\"
+    send \"${min1}\n\"
+    
+    exit 0
+  "
+  
+  expect -c "
+    spawn python resampling_TD.py
+    
+    expect \"sensor\"
+    send \"${SENP}\n\"
+    
+    expect \"number\"
+    send \"${TIME}\n\"
+    
+    expect \"interval\"
+    send \"${min10}\n\"
+    
+    exit 0
+  "
+  done    
+
