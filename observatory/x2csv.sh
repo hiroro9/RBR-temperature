@@ -10,10 +10,10 @@ if [ -f ${INPUT_FILE} ] ; then
   echo $INPUT_FILE
   case "$SID" in
     T0*)
-    xlsx2csv -p "" -I "Data" -a $INPUT_FILE | sed -e "4,$ s/Data//g" -e "4,$ s/Time,Temperature//g" -e '/^$/d' > "$SID_$OBS_obs_full.csv"
+    xlsx2csv -p "" -I "Data" -a $INPUT_FILE | sed -e "4,$ s/Data//g" -e "4,$ s/Time,Temperature//g" -e '/^$/d' > "${SID}_${OBS}_obs_full.csv"
     ;;
     TD0*)
-    xlsx2csv -p "" -I "Data" -a $INPUT_FILE| sed -e "4,$ s/Data//g" -e "4,$ s/Time,Temperature,Pressure,Sea pressure,Depth//g" -e '/^$/d' > "$SID_$OBS_obs_full.csv"
+    xlsx2csv -p "" -I "Data" -a $INPUT_FILE| sed -e "4,$ s/Data//g" -e "4,$ s/Time,Temperature,Pressure,Sea pressure,Depth//g" -e '/^$/d' > "${SID}_${OBS}_obs_full.csv"
     ;;
     *) echo "Please input valid ID!"
     ;;

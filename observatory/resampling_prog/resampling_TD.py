@@ -17,4 +17,4 @@ data.index = pd.to_datetime(data.index)
 
 data = data.resample(n).mean()
 
-data.to_csv(sensor_ID+"_"+times+"_obs_"+n+".csv")
+data.to_csv("./resampled/" + sensor_ID+"_"+times+"_obs_"+n+".csv")
