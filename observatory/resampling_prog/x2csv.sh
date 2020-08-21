@@ -17,7 +17,6 @@ if [ -f ${INPUT_FILE} ] ; then
     T*)
     xlsx2csv -p "" -I "Data" -a $INPUT_FILE | sed -e "4,$ s/Data//g" -e "4,$ s/Time,Temperature//g" -e '/^$/d' > "${SID}_${OBS}_obs_full.csv"
     ;;
-
     
     *) echo "Please input valid ID!"
     ;;
